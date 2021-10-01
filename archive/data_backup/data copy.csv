@@ -1,0 +1,158 @@
+    upper       = true
+}
+➜  local git:(main) ✗ terraform show
+# random_string.random:
+resource "random_string" "random" {
+    id          = "MIeDS"
+    length      = 5
+    lower       = true
+    min_lower   = 0
+    min_numeric = 0
+    min_special = 0
+    min_upper   = 0
+    number      = true
+    result      = "MIeDS"
+    special     = false
+    upper       = true
+}
+➜  local git:(main) ✗ terraform plan 
+random_string.random: Refreshing state... [id=MIeDS]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # random_string.random must be replaced
+-/+ resource "random_string" "random" {
+      ~ id          = "MIeDS" -> (known after apply)
+      ~ result      = "MIeDS" -> (known after apply)
+      ~ special     = false -> true # forces replacement
+        # (8 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you
+run "terraform apply" now.
+➜  local git:(main) ✗ terraform apply
+random_string.random: Refreshing state... [id=MIeDS]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # random_string.random must be replaced
+-/+ resource "random_string" "random" {
+      ~ id          = "MIeDS" -> (known after apply)
+      ~ result      = "MIeDS" -> (known after apply)
+      ~ special     = false -> true # forces replacement
+        # (8 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+random_string.random: Destroying... [id=MIeDS]
+random_string.random: Destruction complete after 0s
+random_string.random: Creating...
+random_string.random: Creation complete after 0s [id=+JD*=]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+➜  local git:(main) ✗ terraform show 
+# random_string.random:
+resource "random_string" "random" {
+    id          = "+JD*="
+    length      = 5
+    lower       = true
+    min_lower   = 0
+    min_numeric = 0
+    min_special = 0
+    min_upper   = 0
+    number      = true
+    result      = "+JD*="
+    special     = true
+    upper       = true
+}
+➜  local git:(main) ✗ terraform show
+# random_string.random:
+resource "random_string" "random" {
+    id          = "+JD*="
+    length      = 5
+    lower       = true
+    min_lower   = 0
+    min_numeric = 0
+    min_special = 0
+    min_upper   = 0
+    number      = true
+    result      = "+JD*="
+    special     = true
+    upper       = true
+}
+➜  local git:(main) ✗ terraform show -json
+{"format_version":"0.1","terraform_version":"0.15.0","values":{"root_module":{"resources":[{"address":"random_string.random","mode":"managed","type":"random_string","name":"random","provider_name":"registry.terraform.io/hashicorp/random","schema_version":1,"values":{"id":"+JD*=","keepers":null,"length":5,"lower":true,"min_lower":0,"min_numeric":0,"min_special":0,"min_upper":0,"number":true,"override_special":null,"result":"+JD*=","special":true,"upper":true}}]}}}
+➜  local git:(main) ✗ terraform apply     
+random_string.random: Refreshing state... [id=+JD*=]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # random_string.random must be replaced
+-/+ resource "random_string" "random" {
+      ~ id          = "+JD*=" -> (known after apply)
+      ~ length      = 5 -> 10 # forces replacement
+      ~ result      = "+JD*=" -> (known after apply)
+        # (8 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+random_string.random: Destroying... [id=+JD*=]
+random_string.random: Destruction complete after 0s
+random_string.random: Creating...
+random_string.random: Creation complete after 0s [id=yiiu86EnEl]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+➜  local git:(main) ✗ terraform show -json
+{"format_version":"0.1","terraform_version":"0.15.0","values":{"root_module":{"resources":[{"address":"random_string.random","mode":"managed","type":"random_string","name":"random","provider_name":"registry.terraform.io/hashicorp/random","schema_version":1,"values":{"id":"yiiu86EnEl","keepers":null,"length":10,"lower":true,"min_lower":0,"min_numeric":0,"min_special":0,"min_upper":0,"number":true,"override_special":null,"result":"yiiu86EnEl","special":true,"upper":true}}]}}}
+➜  local git:(main) ✗ terraform show -json|jq
+{
+  "format_version": "0.1",
+  "terraform_version": "0.15.0",
+  "values": {
+    "root_module": {
+      "resources": [
+        {
+          "address": "random_string.random",
+          "mode": "managed",
+          "type": "random_string",
+          "name": "random",
+          "provider_name": "registry.terraform.io/hashicorp/random",
+          "schema_version": 1,
+          "values": {
+            "id": "yiiu86EnEl",
+            "keepers": null,
+            "length": 10,
+            "lower": true,
+            "min_lower": 0,
+            "min_numeric": 0,
+            "min
