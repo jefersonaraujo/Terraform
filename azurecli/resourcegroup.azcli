@@ -1,0 +1,5 @@
+az version
+
+az login
+
+az group create --location brazilsouth --name rgazure
