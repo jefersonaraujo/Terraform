@@ -1,2 +1,2 @@
 location = "westus"
-name-rg = "rgterraform"
+name-rg  = "rgterraform"
