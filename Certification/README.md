@@ -18,3 +18,21 @@ Bitbucket. Posteriormente, podemos aplicar uma abordagem DevOps para gerenciar n
 muitas vantagens de usar IaC; vamos discutir alguns deles.
 
 #### Vantagens do IaC
+
+Usando IaC, você seria capaz de criar uma arquitetura de infraestrutura completa simplesmente executando um script.
+Suponha que você precise implantar infraestrutura em vários ambientes, como desenvolvimento, teste,
+pré-produção e produção. Seria muito fácil provisioná-lo com apenas um clique. Não
+apenas isso, mas digamos que você precise implantar o mesmo tipo de ambientes de infraestrutura em outras regiões
+onde seu provedor de nuvem oferece suporte para backup e recuperação de desastres.
+Você pode fazer tudo isso escrevendo linhas de código simples.
+
+
+##### Consistência de configuração
+
+A abordagem clássica de implantação de infraestrutura é muito feia porque a infraestrutura é
+provisionado e gerenciado usando uma abordagem manual que ajuda a manter alguma consistência no
+processo de implantação de infraestrutura. Mas sempre introduz erro humano, o que torna difícil
+execute qualquer tipo de depuração.
+IaC padroniza o processo de construção e gerenciamento da infraestrutura para que a possibilidade de qualquer
+erros ou desvios são reduzidos. Definitivamente, isso diminuirá quaisquer problemas de incompatibilidade com o
+infraestrutura e o ajudará a executar seu aplicativo sem problemas.
