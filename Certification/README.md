@@ -36,3 +36,37 @@ execute qualquer tipo de depuração.
 IaC padroniza o processo de construção e gerenciamento da infraestrutura para que a possibilidade de qualquer
 erros ou desvios são reduzidos. Definitivamente, isso diminuirá quaisquer problemas de incompatibilidade com o
 infraestrutura e o ajudará a executar seu aplicativo sem problemas.
+
+##### Minimização de risco
+
+Essa situação desafiadora pode ser controlada usando IaC para a infraestrutura. IaC não só
+automatiza o processo, mas também serve como uma forma de documentação para sua infraestrutura e
+fornece seguro para a empresa nos casos em que os funcionários deixam a empresa com
+conhecimento. Como você sabe, geralmente mantemos IaC para ferramentas de controle de origem, como Azure Repos ou
+GitHub. Portanto, se alguém fizer alguma alteração na configuração da infraestrutura, ela será gravada em
+o repositório de controle de origem. Portanto, se alguém sair ou sair de férias, isso não afetará o
+gerenciabilidade da infraestrutura porque a ferramenta de controle de versão terá acompanhado as mudanças
+que foram executados na infraestrutura e isso definitivamente reduziria o risco de falha.
+
+##### Maior eficiência no desenvolvimento de software
+Hoje em dia, com o envolvimento de IaC para provisionamento e gerenciamento de infraestrutura, os desenvolvedores conseguem mais tempo para se concentrar na produtividade. Sempre que precisam lançar seus ambientes de sandbox para desenvolver seu código, eles são facilmente capazes de fazê-lo. O analista de qualidade ( QA ) será capaz de ter um cópia do código e teste-o em ambientes separados. Da mesma forma, testes de segurança e aceitação do usuário também pode ser feito em diferentes ambientes de teste. Com um único clique, o código do aplicativo e código de infraestrutura pode ser feito em conjunto seguindo Integração Contínua e Contínua
+Técnicas de implantação ( CI / CD ).
+
+##### Poupança de custos
+O IaC certamente ajudaria a economizar custos para a empresa. Como mencionamos anteriormente, o script IaC pode ajudar nós criamos e automatizamos o processo de implantação de infraestrutura, o que permite que os engenheiros parem de fazer
+trabalho manual e comece a gastar mais tempo na execução de tarefas de maior valor agregado para a empresa, e por causa disso, a empresa pode economizar dinheiro em termos de processo de contratação e engenheiros salários.
+Como mencionamos anteriormente, o script IaC pode destruir ambientes automaticamente quando eles não estão em uso, o que irá reduzir ainda mais os custos de computação em nuvem das empresas.
+Depois de obter uma compreensão justa do IaC e dos benefícios de usá-lo, vamos prosseguir e tentar aprender
+alguns detalhes sobre uma tecnologia IaC - Terraform.
+
+
+#### O que é Terraform?
+erraform é uma das ferramentas de código aberto que foi introduzida no mercado pela HashiCorp em 2014 como
+Software IaC (IaC significa que podemos escrever código para nossa infraestrutura) que é usado principalmente para construção,
+mudando e gerenciando a infraestrutura com segurança e eficiência. O Terraform pode ajudar com várias nuvens
+ambientes tendo um único fluxo de trabalho, em outras palavras **terraform init, terraform plan, terraform
+apply**, assim por diante, para todas as nuvens.
+A infraestrutura que o Terraform gerencia pode ser hospedada publicamente
+nuvens, como AWS, Microsoft Azure e GCP, ou locais em nuvens privadas, como VMware
+vSphere, OpenStack ou CloudStack. O Terraform lida com IaC, para que você nunca precise se preocupar com seu
+infraestrutura se distanciando de sua configuração desejada.
