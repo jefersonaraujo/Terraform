@@ -61,7 +61,7 @@ alguns detalhes sobre uma tecnologia IaC - Terraform.
 
 
 #### O que é Terraform?
-erraform é uma das ferramentas de código aberto que foi introduzida no mercado pela HashiCorp em 2014 como
+Terraform é uma das ferramentas de código aberto que foi introduzida no mercado pela HashiCorp em 2014 como
 Software IaC (IaC significa que podemos escrever código para nossa infraestrutura) que é usado principalmente para construção,
 mudando e gerenciando a infraestrutura com segurança e eficiência. O Terraform pode ajudar com várias nuvens
 ambientes tendo um único fluxo de trabalho, em outras palavras **terraform init, terraform plan, terraform
@@ -70,3 +70,117 @@ A infraestrutura que o Terraform gerencia pode ser hospedada publicamente
 nuvens, como AWS, Microsoft Azure e GCP, ou locais em nuvens privadas, como VMware
 vSphere, OpenStack ou CloudStack. O Terraform lida com IaC, para que você nunca precise se preocupar com seu
 infraestrutura se distanciando de sua configuração desejada.
+O Terraform usa principalmente arquivos Terraform que terminam em .tf ou .tf.json que contêm informações detalhadas sobre
+quais componentes de infraestrutura são necessários para executar um único aplicativo ou todos os seus dados
+Centro. Terraform gera um plano de execução, que descreve o que vai fazer para alcançar o
+estado desejado e, em seguida, executa-o para construir a infraestrutura descrita. Se houver alguma mudança no
+arquivo de configuração, o Terraform é capaz de determinar o que foi alterado e criar
+planos de execução que podem ser aplicados
+
+#####  Infraestrutura como código
+A infraestrutura é definida em um formato de código baseado na sintaxe apropriada em um arquivo de configuração que pode ser
+compartilhada e reutilizada. O código definido no arquivo de configuração fornecerá um esquema de seus dados
+centro ou o recurso que você está planejando implantar. Você deve ser capaz de implantar um completo
+infraestrutura desse arquivo de configuração seguindo o fluxo de trabalho do Terraform.
+
+
+##### Planos de execução
+
+O fluxo de trabalho do Terraform tem três etapas - **iniciar** , **planejar** e **aplicar** . Durante a etapa de planejamento ,
+gera um plano de execução. O plano de execução fornece informações sobre o que o Terraform fará
+quando você ligar, aplique . Isso significa que você não terá nenhum tipo de surpresa ao realizar o **terraform apply**.
+
+##### Gráfico de recursos
+
+Terraform constrói um gráfico de todos os seus recursos e paraleliza a criação e modificação de qualquer
+recursos não dependentes. Por causa deste gráfico de recursos, o Terraform consegue construir infraestrutura
+da forma mais eficiente possível que seja suficientemente inteligente para entender as dependências em sua infraestrutura.
+
+##### Mudança de automação
+
+Mudanças complexas em sua infraestrutura definida podem ser aplicadas com o mínimo de interação humana . Com
+o plano de execução e gráfico de recursos mencionados acima, você sabe exatamente o que o Terraform mudará
+e em que ordem, evitando assim vários erros humanos possível.
+
+### CloudFormation versus Terraform
+##### Plataforma cruzada
+Um grande benefício do Terraform é que você pode usá-lo com uma variedade de provedores de nuvem, incluindo AWS,
+GCP e Azure. Os modelos do CloudFormation são mais centrados na AWS. Então aqui, o Terraform seria
+mais preferido do que AWS CloudFormation.
+
+##### Língua
+Terraform é escrito em HashiCorp Configuration Language ( HCL ). A sintaxe da HCL é muito poderosa
+e permite que você faça referência a variáveis, atributos e assim por diante, enquanto o CloudFormation usa
+JSON ou YAML, que são linguagens de notação simples e não são tão poderosas quanto HCL. Com
+CloudFormation, você também pode referenciar parâmetros, como outras pilhas, mas no geral, pensamos que HCL
+torna o Terraform mais produtivo.
+
+Por outro lado, CloudFormation tem um bom suporte para várias funcionalidades condicionais. Terraform
+tem os loops **count** , **for_each** e **for** , que tornam certas coisas fáceis (como criar N idênticos
+recursos) e certas coisas um pouco mais difíceis (como a estrutura condicional do tipo **if-else**  por exemplo,
+count = var.create_eip == true? 1: 0 ). CloudFormation também tem uma condição de espera e política de criação,
+o que pode ser importante em certas situações de implantação onde você pode ter que esperar antes de um certo
+condição é satisfeita.
+
+Em termos de linguagem, o Terraform é simples e fácil de esboçar, o que encorajaria os desenvolvedores e
+administradores para começar a explorar o Terraform, mas isso praticamente depende do cenário de caso de uso,
+que pode, em alguns casos, exigir que você use CloudFormation para implantação de recursos AWS e
+gerenciabilidade.
+
+##### Modularidade
+Modularidade é geralmente definida como o quanto é mais fácil para você implementar seu código de infraestrutura
+usando Terraform ou CloudFormation. Os módulos do Terraform podem ser facilmente escritos e reutilizados como
+código de infraestrutura em vários projetos por várias equipes. Portanto, é muito fácil modularizar Código Terraform. Você tem a opção de modularizar o código CloudFormation usando pilhas aninhadas. Vocês
+não pode modularizar sua própria pilha CloudFormation da mesma forma que você pode preparar pilhas de pilhas
+no Terraform. Você pode usar referências cruzadas de pilha em CloudFormation e da mesma forma, pode ser
+referenciado no Terraform usando a fonte de dados terraform_remote_state , que é usada para derivar
+saída do módulo raiz da outra configuração do Terraform.
+Comparando o AWS CloudFormation e o Terraform em termos de modularidade, podemos ver que
+O Terraform parece ser mais amigável e fácil de usar.
+
+##### Validação
+Ambas as ferramentas permitem validar a infraestrutura, mas há uma diferença. Usando CloudFormation, você
+pode validar pilhas do AWS CloudFormation, o que significa que ele verificará apenas a sintaxe de sua pilha. Se
+você deseja atualizar alguns recursos, você pode usar conjuntos de mudanças CloudFormation, que permitem revisar
+as mudanças, significando se esse recurso específico definido no AWS CloudFormation obterá
+substituído ou atualizado, antes de realmente executar as pilhas do AWS CloudFormation.
+
+####
+No fluxo de trabalho do Terraform, há uma fase de planejamento que fornece informações completas sobre o que
+os recursos são modificados, excluídos ou criados antes de você implantar o código de infraestrutura
+####
+No AWS CloudFormation, você tem CloudFormation Designer, que pode ajudá-lo a conhecer todos os
+recursos que você definiu no AWS CloudFormation. Isso irá fornecer-lhe uma visão antes de você
+realmente vá em frente e execute a implantação.
+Em termos de validação, tanto o Terraform quanto o AWS CloudFormation têm certas opções para executá-lo.
+A única grande diferença que pode ser notada é que no AWS CloudFormation, você seria obrigado
+usar vários serviços da AWS, enquanto no Terraform, somos facilmente capazes de validar apenas com seu
+fluxo de trabalho.
+
+
+##### Legibilidade
+Não há dúvida de que quando você escreve um arquivo de configuração do Terraform, você achará mais fácil em comparação com
+AWS CloudFormation. Os arquivos de configuração do Terraform são escritos em HCL, o que significa que são mais
+apresentável quando você entende a sintaxe. Quando você pensa sobre CloudFormation, que é
+geralmente escrito em JSON ou YAML, é bastante complexo em termos de legibilidade, especialmente JSON;
+YAML é um tanto bom de ler e entender, mas o problema com YAML é em relação ao seu
+espaço em branco e linting. No Terraform também, há a preocupação de linting, mas o Terraform tem uma maneira inteligente de
+executar linting apenas executando o **terraform fmt -recursive** , que executará linting para todos os
+Arquivos de configuração do Terraform presentes no diretório, enquanto em YAML, você deve executar
+algo manualmente ou use alguma ferramenta validadora YAML que pode ajudá-lo com as validações.
+Portanto, em poucas palavras, o Terraform tem mais preferência do que o AWS CloudFormation.
+
+##### Licença e suporte
+O AWS CloudFormation é um serviço gerenciado da AWS oferecido gratuitamente, enquanto o Terraform é um serviço
+ferramenta de automação de infraestrutura de origem fornecida pela HashiCorp. Existe o Terraform Cloud Enterprise produto da HashiCorp que é uma versão licenciada e os clientes empresariais precisam adquiri-lo
+HashiCorp.
+Em termos de planos de suporte, a AWS tem seu próprio plano de suporte que pode ser obtido da AWS, na mesma
+forma que o Terraform tem sua opção de suporte que pode ser usada pelos clientes.
+
+##### Suporte do console AWS
+Como o AWS CloudFormation é uma ferramenta nativa AWS IaC, naturalmente fornece excelente suporte no AWS
+console. No console AWS, você pode monitorar o progresso das implantações, ver todas as implantações
+eventos, verifique vários erros, integre CloudFormation com CloudWatch e assim por diante. No Terraform
+CLI, não temos nenhuma opção de console, mas na versão Terraform Cloud Enterprise, há um
+console onde você pode ver todo o progresso das implantações de recursos.
+
