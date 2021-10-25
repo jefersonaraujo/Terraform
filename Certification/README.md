@@ -420,8 +420,53 @@ Vimos como o Terraform difere de outras opções de IaC, principalmente em termo
 bem como sua modularidade, legibilidade, gerenciamento de estado de infraestrutura, linguagem, facilidade de manutenção,
 fluxo de trabalho, suporte de console de nuvem e assim por diante, e como pode ser usado por grandes provedores de nuvem, como AWS, Azure e GCP. Todas essas comparações ajudarão você a entender como o Terraform é uma
 IaC poderoso e como você pode escolher efetivamente o Terraform IaC para o provisionamento de sua infraestrutura
-em vez de selecionar qualquer IaC específico. Continuando, vamos tentar entender o Terraform
-arquitetur
-#### 
+em vez de selecionar qualquer IaC específico. 
 
-##### 
+#### Uma compreensão da arquitetura do Terraform
+Terraform é inteiramente
+construído em uma arquitetura baseada em plugins. Os plug-ins do Terraform permitem que todos os desenvolvedores estendam o Terraform
+uso escrevendo novos plug-ins ou compilando versões modificadas de plug-ins existentes.
+
+Como você pode ver na arquitetura anterior do Terraform, existem dois componentes principais nos quais
+O funcionamento do Terraform depende de: Terraform Core e plug-ins do Terraform. Terraform Core usa Remote
+Chamadas de procedimento ( RPCs ) para se comunicar com plug-ins Terraform e oferece várias maneiras de descobrir
+e carregue os plug-ins para usar. Os plug-ins do Terraform expõem uma implementação para um serviço específico, como
+AWS ou um provisionador e assim por diante.
+#####  Terraform Core
+
+Terraform Core é um binário compilado estaticamente escrito na linguagem de programação Go. Ele usa RPCs
+para se comunicar com plug-ins do Terraform e oferece várias maneiras de descobrir e carregar plug-ins para uso.
+O binário compilado é o Terraform CLI. Se você estiver interessado em aprender mais sobre isso, você deve
+comece sua jornada no Terraform CLI, que é o único ponto de entrada. O código é de código aberto e
+hospedado em github.com/hashicorp/Terraform
+
+As responsabilidades do Terraform Core são as seguintes:
+###### IaC: Leitura e interpolação de arquivos e módulos de configuração
+###### Gerenciamento de estado de recursos
+###### Construção de gráfico de recursos
+###### Execução do plano
+###### Comunicação com plug-ins via RPC
+
+##### Plug-ins do Terraform
+
+Os plug-ins do Terraform são escritos na linguagem de programação Go e são binários executáveis ​que obtêm
+invocado pelo Terraform Core via RPCs. Cada plugin expõe uma implementação para um serviço específico,
+como AWS, ou um provisionador, como Bash. Todos os provedores e provisionadores são plug-ins que são
+definido no arquivo de configuração do Terraform. Ambos são executados como processos separados e
+comunicar-se com o binário principal do Terraform por meio de uma interface RPC. O Terraform tem muitos
+provisionadores, enquanto os provedores são adicionados dinamicamente como e quando necessário. O Terraform Core oferece um
+estrutura de alto nível que abstrai os detalhes da descoberta do plug-in e da comunicação RPC, então
+que os desenvolvedores também não precisam gerenciar.
+Os plug-ins do Terraform são responsáveis ​ pela implementação específica do domínio de seu tipo.
+As responsabilidades dos plug-ins do provedor são as seguintes:
+´´´´´´ 
+Inicialização de quaisquer bibliotecas incluídas usadas para fazer chamadas de API
+Autenticação com o provedor de infraestrutura
+A definição de recursos que mapeiam para serviços específicos
+
+´´´
+As responsabilidades dos plug-ins provisionadores são as seguintes:
+Executar comandos ou scripts no recurso designado após a criação ou destruição
+
+#### Capítulo 3 : Introdução ao Terraform
+
