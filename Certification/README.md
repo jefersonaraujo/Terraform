@@ -470,3 +470,47 @@ Executar comandos ou scripts no recurso designado após a criação ou destruiç
 
 #### Capítulo 3 : Introdução ao Terraform
 
+##### Provedores Terraform
+Você pode estar se perguntando como o Terraform sabe para onde ir e criar recursos, digamos, para
+exemplo, uma situação em que você deseja implantar um recurso de rede virtual no Azure. Como vai o Terraform
+entende que ele precisa ir e criar os recursos no Azure e não em outras nuvens? Terraform
+consegue identificar o provedor Terraform. Então, vamos tentar entender qual é a definição de um
+O provedor Terraform é:
+
+Um provedor é um plugin executável que é baixado quando você executa o comando terraform init .
+O bloco do provedor Terraform define a versão e passa os argumentos de inicialização para o provedor,como autenticação ou detalhes do projeto. Provedores Terraform são o componente que faz todos os
+chamadas para APIs HTTP para serviços de nuvem específicos, ou seja, AzureRM, GCP ou AWS.
+
+Terraform Registry é o diretório principal de provedores Terraform disponíveis ao público e provedores de hosts
+para a maioria das principais plataformas de infraestrutura. Você também pode escrever e distribuir seu próprio Terraform
+fornecedores, para uso público ou privado. Para mais compreensão sobre o Terraform Registry, você pode seguir
+https://registry.terraform.io/ .
+
+
+
+##### Provedor AzureRM Terraform
+
+Conforme discutimos sobre os provedores no Terraform, a HashiCorp introduziu o provedor AzureRM .
+
+```sh
+# We strongly recommend using the required_providers block to set the
+# Azure Provider source and version being used
+terraform {
+required_version = ">= 1.0"
+required_providers {
+azurerm = {
+source
+= "hashicorp/azurerm"
+version = "2.54.0"
+}}
+}
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+features {}
+subscription_id = "...."
+client_id = "...."
+client_secret = "...."
+tenant_id = "...."
+}
+```
+
