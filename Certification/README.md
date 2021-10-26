@@ -1,5 +1,5 @@
 # Guia Para Certificação Terraform
-
+Int: https://hieven.github.io/terraform-visual/
 ### Capítulo 1 : Conhecendo o IaC
 #### Introdução ao IaC
 
@@ -514,3 +514,87 @@ tenant_id = "...."
 }
 ```
 
+No bloco de código do provedor AzureRM anterior, consideramos a autenticação do Terraform para
+Azure usando o princípio de serviço. Vamos tentar entender quais são os diferentes argumentos suportados:
+
+
+**features** (obrigatório): alguns dos comportamentos de recursos do provedor do Azure podem ser personalizados, definindo-os no
+bloco de recursos.
+**client_id** (opcional): o ID do cliente pode ser obtido do princípio de serviço. Ele pode se originar do ARM_CLIENT_ID variável de ambiente.
+
+**client_secret** (opcional): este é o segredo do cliente que você pode gerar para o princípio de serviço que criou.
+
+Isso também pode ser originado da variável de ambiente **ARM_CLIENT_SECRET** .
+
+**subscription_id** (opcional): fornece sua ID de assinatura do Azure. Pode ser proveniente da variável de ambiente **ARM_SUBSCRIPTION_ID**
+
+**tenant_id** (opcional): fornece sua ID de locatário do Azure. Ele pode ser obtido no ambiente ARM_TENANT_ID
+variável
+
+
+#####
+Para se autenticar em sua assinatura do Azure, você deve fornecer valores para
+**subscription_id , client_id , client_secret e tenant_id** . Agora, é recomendado que você
+passe esses valores por meio de uma variável de ambiente ou use credenciais em cache da CLI do Azure. Como
+de acordo com a prática recomendada, evite codificar informações secretas, como credenciais, em
+a configuração do Terraform. Para obter mais detalhes sobre como autenticar o Terraform em um Azure
+provedor, você pode consultar https://www.terraform.io/docs/providers/azurerm/index.html
+
+
+````sh
+terraform {required_version = ">= 1.0"
+required_providers {
+azurerm = {
+source
+= "hashicorp/azurerm"
+version = "2.54.0"
+}
+}
+}
+
+
+````
+
+Em vez de definir a versão de um provedor para cada instância desse provedor, o
+O bloco required_providers define-o para todas as instâncias do provedor, incluindo módulos filhos. Usando o
+O bloco required_providers torna mais simples atualizar a versão em uma configuração complexa.
+Vamos ver quais opções diferentes você tem ao passar valores de versão no código do provedor
+bloquear:
+```sh
+> = 2.54.0 : Maior ou igual à versão.
+= 2.54.0 : Igual à versão.
+! = 2.54.0 : Diferente da versão.
+<= 2.54.0 : Menor ou igual à versão.
+~> 2.54.0 : Este é descolado. Significa qualquer versão na faixa 2.54.X Ele sempre procurará a versão mais correta
+incremento.
+> = 2,46, <= 2,54 : qualquer versão entre 2,46 e 2,54 , inclusive.
+`````
+
+Um dos argumentos mais comuns é ~> , o que significa que você deseja a mesma versão principal enquanto ainda
+permitindo atualizações de versões secundárias. Por exemplo, digamos que há uma grande mudança chegando ao Azure
+provedor na versão 2.0. Ao definir a versão para ~> 1.0 , você permitiria todas as atualizações da versão 1 que
+cair enquanto ainda bloqueia o grande lançamento 2.0.
+
+
+
+Vamos tentar entender o que o argumento de recursos está fazendo dentro deste bloco de código do provedor do Azure.
+De acordo com a atualização mais recente, você pode controlar o comportamento de alguns dos recursos do Azure usando este
+bloco de recursos
+
+
+O bloco de recursos oferece suporte aos seguintes recursos ou serviços do Azure:
+key_vault
+template_deployment
+virtual_machine
+virtual_machine_scale_set
+log_analytics_workspace
+
+
+
+##### Recursos do Terraform
+**Recursos** são os blocos de código mais importantes na linguagem Terraform. Definindo um recurso
+bloco de código no arquivo de configuração, você está permitindo ao Terraform saber quais objetos de infraestrutura você
+estão planejando criar, excluir ou atualizar, como computação , rede virtual ou PaaS de nível superior
+componentes, como aplicativos da web e bancos de dados . Quando você define um bloco de código de recurso no
+arquivo de configuração, ele começa com o nome do provedor bem no início, por exemplo, **aws_instance ,
+azurerm_subnet e google_app_engine_application** .
