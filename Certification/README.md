@@ -477,7 +477,7 @@ entende que ele precisa ir e criar os recursos no Azure e não em outras nuvens?
 consegue identificar o provedor Terraform. Então, vamos tentar entender qual é a definição de um
 O provedor Terraform é:
 
-Um provedor é um plugin executável que é baixado quando você executa o comando terraform init .
+Um **provedor** é um plugin executável que é baixado quando você executa o comando **terraform init**.
 O bloco do provedor Terraform define a versão e passa os argumentos de inicialização para o provedor,como autenticação ou detalhes do projeto. Provedores Terraform são o componente que faz todos os
 chamadas para APIs HTTP para serviços de nuvem específicos, ou seja, AzureRM, GCP ou AWS.
 
@@ -598,3 +598,22 @@ estão planejando criar, excluir ou atualizar, como computação , rede virtual 
 componentes, como aplicativos da web e bancos de dados . Quando você define um bloco de código de recurso no
 arquivo de configuração, ele começa com o nome do provedor bem no início, por exemplo, **aws_instance ,
 azurerm_subnet e google_app_engine_application** .
+
+
+##### Provedor AWS Terraform
+
+Existem muitos argumentos suportados pelo bloco de código do provedor AWS. Alguns deles são descritos
+aqui, mas para obter mais informações sobre todos os argumentos, você pode visitar
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs :
+
+###### **access_key** (opcional): esta é a chave de acesso da AWS. Deve ser fornecido, mas também pode ser proveniente do Variável de ambiente **AWS_ACCESS_KEY_ID** ou por meio de um arquivo de credenciais compartilhado se um perfil for especificado.
+
+###### **secret_key** (opcional): esta é a chave secreta da AWS. Deve ser fornecido, mas também pode ser proveniente do Variável de ambiente AWS_SECRET_ACCESS_KEY ou por meio de um arquivo de credenciais compartilhado se um perfil for especificado.
+
+**region** (opcional): esta é a região da AWS onde você deseja implantar os recursos da AWS. Isso pode ser obtido a partir do
+Variável de ambiente AWS_DEFAULT_REGION ou por meio de um arquivo de credenciais compartilhado se um perfil for especificado.
+
+Para autenticação em sua conta AWS, você pode definir **access_key** e **secret_key** no
+variável de ambiente porque, como você sabe, a codificação de um segredo no bloco de código do provedor não é
+recomendado, por isso é melhor passá-lo durante o próprio tempo de execução ou defini-lo no ambiente
+variável.
