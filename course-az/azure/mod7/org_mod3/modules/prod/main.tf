@@ -1,7 +1,7 @@
 module "prod" {
-    source = "../infra"
+  source = "../infra"
 
-    ambiente = "prod"
-    location = "brazilsouth"
-  
+  ambiente = "prod"
+  location = "brazilsouth"
+
 }

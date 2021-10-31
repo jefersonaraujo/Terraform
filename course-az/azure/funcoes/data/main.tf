@@ -5,7 +5,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "grupo-recurso" {
-  count = 2
+  count    = 2
   location = "brazilsouth"
   name     = "rg-terraform-${count.index}"
   tags = {
@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "grupo-recurso" {
 }
 
 variable "vnetips" {
-  type    = list
+  type    = list(any)
   default = ["10.0.0.0/16"]
 
 }
@@ -35,5 +35,5 @@ resource "azurerm_virtual_network" "vnet" {
 
 output "vnet-numeroips" {
   value = length("${azurerm_virtual_network.vnet.address_space}")
-        
+
 }

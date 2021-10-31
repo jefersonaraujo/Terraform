@@ -1,11 +1,11 @@
 provider "azurerm" {
-    features {
-      
-    } 
+  features {
+
+  }
 }
 
 resource "azurerm_resource_group" "grupo-recurso" {
-    name = "rgterraform"
-    location = "brazilsouth"
-  
+  name     = "rgterraform"
+  location = "brazilsouth"
+
 }

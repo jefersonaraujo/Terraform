@@ -1,10 +1,10 @@
 variable "location" {
-    type = string
+  type = string
   //  default = "brazilsouth"
 }
 
 variable "ambiente" {
-    type = string
-    description = "Ambiente DEV,TEST e PROD"
-  
+  type        = string
+  description = "Ambiente DEV,TEST e PROD"
+
 }

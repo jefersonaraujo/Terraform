@@ -1,2 +1,2 @@
- location = "brazilsouth"
- ambiente = "prod"
+location = "brazilsouth"
+ambiente = "prod"
